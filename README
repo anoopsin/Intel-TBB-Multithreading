@@ -1,0 +1,151 @@
+Abstract:
+
+Our aim in this research paper was to convert some of the existing serial programs into their parallel version using Intel® Threading Building Blocks (Intel® TBB).  Intel TBB provides header files and parallel versions of some of the control statements. Some data structures like array and queue also have a parallel version available in Intel TBB which allow for faster operations.  The parallel programs created with the aid of Intel TBB are multithreaded in nature.  Also these versions of the program are scalable, i.e., they adapt themselves to the multicore processors.  We have developed 3 parallel programs, each in a different field like mathematics, cryptography, etc.  Our aim is to compare the scope for optimization in each of these varied fields.  We also want to understand the difficulties faced in conversion of serial programs into their parallel version.  Finally, we will take the readings for both serial and parallel versions of the program on different configurations and analyze them.
+
+
+Background:
+
+Most of the software applications which are currently used in the industry are serial in nature. The hardware capabilities in the computing world have increased tremendously over the past few years. Software has been unable to keep pace with this fast growth. Hence we see a glaring difference between the current hardware's ability and the software which runs on it. Also, until recently there was not much emphasis on the parallel aspect of the software during the design phase. Therefore, it's very difficult to convert a finished serial version of a program into its parallel version. We faced similar problems when we started out with our research.
+
+
+Problem Statement:
+
+We have developed a suite of multithreaded applications. Brief problem statements of these applications are given below:
+
+1.      AES Encryption (Advanced Encryption Standard):
+
+The standard comprises three block ciphers, AES-128, AES-192 and AES-256, adopted from a larger collection originally published as Rijndael. Each AES cipher has a 128-bit block size, with key sizes of 128, 192 and 256 bits, respectively.  The AES ciphers have been analyzed extensively and are now used worldwide, as was the case with its predecessor, the Data Encryption Standard (DES).
+
+We have implemented AES-128, i.e., we have used a 128 bit key for both encryption as well as decryption.  Both serial and parallel versions of the code were developed.
+
+
+2.      Sudoku Solver:
+
+Sudoku is a logic-based, combinatorial number-placement puzzle. The objective is to fill a 9×9 grid so that each column, each row, and each of the nine 3×3 boxes (also called blocks or regions) contain the digits from 1 to 9 only once each. The puzzle setter provides a partially completed grid.
+
+We have developed a parallel program which solves any Sudoku using Brute Force Approach. The program can even deduce multiple solutions for a Sudoku, if they are possible.
+
+
+3.      Strassen Multiplication:
+
+In the mathematical discipline of linear algebra, the Strassen algorithm, named after Volker Strassen, is an algorithm used for matrix multiplication.  It is asymptotically faster than the standard matrix multiplication algorithm, but slower than the fastest known algorithm, and is useful in practice for large matrices.
+
+We have created a parallel program to perform Strassen Multiplication.  It takes two 4 x 4 arrays as input and gives their multiplied result.
+
+
+Methodology:
+
+1.      Create the application in Borland* Compiler:
+
+As we are well versed with the Borland compiler, first we have developed the applications using it.  But it does not support console applications, so we have used Microsoft Visual Studio* for creating console applications.
+
+
+2.      Make some changes and implement the same on Microsoft Visual Studio 2005:
+
+Some changes are supposed to be made while transferring the code from Borland Compiler to Visual Studio because functions like clrscr() and getch() and header file like conio.h are not supported by Microsoft Visual Studio.
+
+
+3.      Analyze the program and look for the scope of optimization:
+
+Each procedure and iteration cannot be converted into optimized form, so programmer has to look for the piece of code which can be optimized, and after doing the same it should yield the correct results.
+
+
+4.      Design the parallel version of the program using Intel TBB:
+
+Now the program must be optimized using Intel TBB's algorithms like "parallel_for" by replacing "for" and data structures like "concurrent queue" instead of array. Time taken in execution of the parallel version of program is mostly less than the serial version.
+
+
+5. Verify the results by migrating the program on different systems with different inputs:
+
+After finalizing the code, the applications were run on different systems as well as providing them with different inputs and their results were verified. When they were producing incorrect results, changes were made to get the correct results.
+
+
+Key Results:
+
+For the implementation of AES Cryptographic program, the following readings were obtained for a 10 MB text file on
+
+
+Config 1: Intel® Pentium® M 1.70 GHz, 512MB RAM
+
+AES Encryption Without Parallelization: 150 seconds*
+
+AES Encryption With Parallelization: 135 seconds*
+
+AES Decryption Without Parallelization: 135 seconds*
+
+AES Decryption With Parallelization: 130 seconds*
+
+
+Config 2: Intel® Pentium® D 3.40 GHz, 512MB RAM
+
+AES Encryption Without Parallelization: 65 seconds*
+
+AES Encryption With Parallelization: 57 seconds*
+
+AES Decryption Without Parallelization: 56 seconds*
+
+AES Decryption With Parallelization: 49 seconds*
+
+*Depends on system load
+
+Fig 7.1 Observations of AES
+
+
+
+For the Sudoku and Strassen Multiplication program, the following readings were obtained on
+
+Config 1: Intel Pentium M 1.70 GHz, 512MB RAM 
+
+Sudoku (Many Solutions): 0.1401 seconds* 
+
+Sudoku (1 Solution; Puzzle 1): 0.5485 seconds* 
+
+Sudoku (1 Solution; Puzzle 2): 0.2199 seconds* 
+
+Strassen Multiplication: 0.0132 seconds*
+
+
+Config 2: Intel Pentium D 3.40 GHz, 512MB RAM 
+
+Sudoku (Many Solutions): 0.1046 seconds* 
+
+Sudoku (1 Solution; Puzzle 1): 0.2149 seconds* 
+
+Sudoku (1 Solution; Puzzle 2): 0.0982 seconds*
+
+Strassen Multiplication: 0.0007 seconds*
+
+
+Fig 7.2 Observations of Sudoku & Strassen
+
+
+
+Discussion:
+
+Most of the software applications which are currently used in the industry are serial in nature.  The hardware capabilities in the computing world have increased tremendously over the past few years.  Software has been unable to keep pace with this fast growth. Hence we see a glaring difference between the current hardware’s ability and the software which runs on it.  Also, till recently there was not much emphasis on the parallel aspect of the software during the design phase. Therefore, it’s very difficult to convert a finished serial version of a program into its parallel version.
+
+
+Scope for future work (if any):
+
+We have tested our programs on different processors after completion. The programs were tested for accuracy on both single as well as multicore computers. When we moved some of our programs from a single core multithreaded environment to a multicore one, sometimes the program failed to run correctly. The expected output of the program was tough to predict in such cases. 
+
+For example, when we shifted our AES program from a single core to a multicore one, the results were not correct.  The program was unable to encrypt and decrypt the file correctly.  This could probably be due to some unexpected behaviour when migrating to a multicore environment.  Then we had to check our parallel version of the program. Changes were made in the code and then the program was tested again.  This time the code worked fine. 
+
+What we propose is that there should be a way to check an application’s performance in a multicore environment on a computer with a single core processor.  Simulation of multicore processors on a single core machine should be made possible.  This could allow for easier testing and debugging.  The unavailability of quad-core processors, etc. in the domestic scene also makes this testing difficult.
+
+The steps involved in converting an existing serial version of a program to its parallel version are the same for almost all of the programs.  Initially we go through the serial version of the application looking for independent blocks of code which can be converted into their parallel version.  Then, using the trial and error method, we try to convert these blocks one by one to their parallel version. A program with artificial intelligence could be developed that could do the above.  If later on it’s observed that the anticipated result is different from the actual result, backtracking has to be done.  We should then go back to the serial version of that block of code. This process goes on until the entire program is completed.  This automated application could generate parallel programs. The success of such an application is quite speculative though.  But still, this experiment is worth having a look into. 
+
+One thing which could be done in the future is that the program should be designed from the start with the parallel aspect of it in our mind.  This could save a lot of unnecessary effort later on. 
+
+
+
+Conclusion:
+
+We were successful in converting the available serial applications into their parallel versions.  The results were accurate for both the serial as well as the parallel version.  The output was found reliable on dual core processors as well.  The final applications were portable and scalable within the constraints of the program design. 
+
+All the programs cannot necessarily be converted into their multithreaded parallel version.  Only if a program has independent blocks of statements in its code can it be optimized.  Therefore the legacy serial programs, which were designed way back and had no parallel aspect in their design, may prove difficult to optimize.  Still, the currently available and the upcoming programs have a clearly thought parallel aspect in their design phase which could enable the optimization to take place without much effort.  Therefore, an analysis of the serial code must be done before starting with the optimization process.  Only if the code statements show a considerable scope for optimization can we proceed forward.  Otherwise, it’s not recommended to convert this program to its parallel version.  Even if we still attempt to convert this program, the results obtained may not be accurate in a multicore environment.  This distorts the whole objective of creating accurate, portable and scalable applications.
+
+In most of the cases of our project, we have observed that the parallel version of an application performs better or at least equal to the serial version.  But in some rare cases, this may not hold true.  The serial applications, in which the opportunities for parallelization are rare, may not yield an increase in the performance when optimizing.  The statements targeted for parallelization should not be trivial but provide a viable opportunity.  If a program is correctly optimized and it had a lot of potential for multithreading, the final parallel application demonstrates quite an appreciable gain in performance.
+
+
+>>>Download the C++ working code for parallel applications of AES, Sudoku Solver, Strassen Multiplication, that were used to make the observations reported above. The code can be run using Microsoft Visual Studio 2005 integrated with Intel TBB. The observations made from these applications are mentioned in the report.
